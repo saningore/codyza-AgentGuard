@@ -10,7 +10,7 @@ export default async function LoginPage() {
   return (
     <main id="main" className="mx-auto grid max-w-lg gap-6 px-4 py-12">
       <div>
-        <p className="text-sm font-bold text-copper">AgentGuard</p>
+        <p className="text-sm font-bold"><Link className="text-copper" href="/">AgentGuard</Link></p>
         <h1 className="font-serif text-4xl">Sign in</h1>
         <p className="mt-2 text-ink/75">Use the organization account you were given, or the sample accounts in the README.</p>
       </div>

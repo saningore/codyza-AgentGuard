@@ -1,10 +1,12 @@
 import { changePassword, revokeSession, updateAccount } from "@/server/auth-actions";
+import { SessionNav } from "@/components/session-nav";
 import { StateForm } from "@/components/state-form";
-import { requireUser } from "@/server/context";
+import { listMyOrgs, requireUser } from "@/server/context";
 import { sql } from "@/server/db";
 
 export default async function AccountPage() {
   const session = await requireUser();
+  const orgs = await listMyOrgs(session.userId);
   const profile = await sql.begin(async (tx) => {
     await tx`select set_config('app.user_id', ${session.userId}, true)`;
     const users = await tx<{ name: string; timezone: string; email_alerts: boolean }[]>`
@@ -16,7 +18,8 @@ export default async function AccountPage() {
     return { user: users[0], sessions };
   });
   return (
-    <main id="main" className="mx-auto grid max-w-xl gap-4 px-4 py-12">
+    <main id="main" className="mx-auto grid max-w-xl gap-4 px-4 py-6">
+      <SessionNav orgs={orgs} />
       <h1 className="font-serif text-4xl">Account</h1>
       <p className="text-sm">{session.email}</p>
       <div className="card">

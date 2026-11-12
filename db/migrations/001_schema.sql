@@ -988,6 +988,11 @@ grant select, insert, update, delete on
 to agentguard_app;
 grant select, insert on audit_events to agentguard_app;
 grant select on role_permissions, tools, agent_status_transitions, org_usage, token_usage to agentguard_app;
+
+-- Supabase enables row security on every new public table. These catalogs have no tenant rows.
+alter table role_permissions disable row level security;
+alter table tools disable row level security;
+alter table agent_status_transitions disable row level security;
 revoke select (token_hash) on api_tokens from agentguard_app;
 
 commit;

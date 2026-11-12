@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createAgent } from "@/server/org-actions";
 import { StateForm } from "@/components/state-form";
 import { requireOrg } from "@/server/context";
@@ -7,6 +8,7 @@ export default async function NewAgentPage({ params }: { params: Promise<{ slug:
   await requireOrg(slug);
   return (
     <main id="main" className="grid max-w-xl gap-4">
+      <p className="text-sm"><Link className="underline" href={`/o/${slug}/agents`}>Agents</Link></p>
       <h1 className="font-serif text-4xl">New agent</h1>
       <div className="card">
         <StateForm action={createAgent} submit="Create draft">

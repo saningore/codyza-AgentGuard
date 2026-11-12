@@ -1,13 +1,14 @@
 "use client";
 
 import { useActionState } from "react";
-import { beginMfa, confirmMfa } from "@/server/auth-actions";
+import { beginMfa, confirmMfa, logout } from "@/server/auth-actions";
 
 export default function MfaPage() {
   const [secretState, secretAction, secretPending] = useActionState(beginMfa, { error: "" });
   const [state, action, pending] = useActionState(confirmMfa, { error: "" });
   return (
     <main id="main" className="mx-auto grid max-w-lg gap-6 px-4 py-12">
+      <form action={logout}><button className="btn-secondary" type="submit">Log out</button></form>
       <h1 className="font-serif text-4xl">Authenticator</h1>
       <p className="text-sm">Owners and admins confirm a time-based code before they open a workspace.</p>
       <div className="card grid gap-4">
