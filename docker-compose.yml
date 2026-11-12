@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: agentguard
+      POSTGRES_PASSWORD: agentguard
+      POSTGRES_DB: agentguard
+    ports:
+      - "54331:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentguard -d agentguard"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - agentguard-pg:/var/lib/postgresql/data
+
+volumes:
+  agentguard-pg:
